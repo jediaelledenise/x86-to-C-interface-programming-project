@@ -1,3 +1,4 @@
+; De Castro, Jediaelle Denise | S17B
 global calculate_distance_asm
 section .text
 
