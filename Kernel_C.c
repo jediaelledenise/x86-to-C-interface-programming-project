@@ -1,3 +1,7 @@
+/*
+    De Castro, Jediaelle Denise
+    S17B
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
