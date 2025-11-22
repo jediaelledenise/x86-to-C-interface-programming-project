@@ -8,7 +8,7 @@ gcc -c -O2 Kernel_C.c -o Kernel_C.o
 
 Compile x86-64 version
 ```
-nasm -f elf64 Kernel_ASM.asm -o Kernel_ASM.o
+nasm -f win64 Kernel_ASM.asm -o Kernel_ASM.o
 ```
 
 Link
