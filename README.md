@@ -12,14 +12,14 @@ nasm -f win64 Kernel_ASM.asm -o Kernel_ASM.obj
 ```
 Link
 ```
-gcc c.o asm.obj -o run.exe -lm
+gcc Kernel_C.o Kernel_ASM.obj -o run.exe -lm
 ```
 
 Compile Summary
 ```
 gcc -c Kernel_C.c -o Kernel_C.o
 nasm -f win64 Kernel_ASM.asm -o Kernel_ASM.obj
-gcc c.o asm.obj -o run.exe -lm
+gcc Kernel_C.o Kernel_ASM.obj -o run.exe -lm
 ```
 
 Run
