@@ -2,6 +2,7 @@
 
 ### Compile and Run
 Use 'nasmpath' from downloaded NASM
+
 Compile C version
 ```
 gcc -c Kernel_C.c -o Kernel_C.o
@@ -24,5 +25,5 @@ gcc Kernel_C.o Kernel_ASM.obj -o run.exe -lm
 
 Run
 ```
-./runme
+run.exe
 ```
