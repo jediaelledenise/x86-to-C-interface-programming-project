@@ -8,7 +8,7 @@ gcc -c -O2 CalculateDistance_c.c -o CalculateDistance_c.o
 
 Compile x86-64 version
 ```
-nasm -f elf64 CalculateDistance_asm.asm -o CalculationDistance_asm.o
+nasm -f elf64 CalculateDistance_asm.asm -o CalculateDistance_asm.o
 ```
 
 Link
