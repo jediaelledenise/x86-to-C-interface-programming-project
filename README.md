@@ -1,4 +1,19 @@
-# x86-to-C-interface-programming-project
+# Kernel Performance Comparison (C vs. x86-64 Assembly)
+
+This repository contains two kernel implementations for calculating the Euclidean distance between two sets of 2D points: a pure C implementation and an optimized x86-64 Assembly implementation leveraging SIMD instructions.
+
+The project is designed to compare the execution time and performance efficiency of the compiler-optimized C code against manually optimized assembly code, particularly for large vector sizes.
+
+### Comparative execution time and Analysis of the performance of the kernels
+| Vector size (n) | n(2^n) | C kernel time | ASM kernel time | Performance ratio (C/ASM) |
+| --------------- | ------ | ------------- | --------------- | ------------------------- |
+|     1048576     | 2^20 | 0.003870 | 0.001538 | ------------------------- |
+| --------------- | ------ | ------------- | --------------- | ------------------------- |
+| --------------- | ------ | ------------- | --------------- | ------------------------- |
+| --------------- | ------ | ------------- | --------------- | ------------------------- |
+
+
+
 
 ### Compile and Run
 Use 'nasmpath' from downloaded NASM
