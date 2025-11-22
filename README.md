@@ -1,35 +1,28 @@
 # x86-to-C-interface-programming-project
 
 ### Compile and Run
+Use 'nasmpath' from downloaded NASM
 Compile C version
 ```
-gcc -c -O2 Kernel_C.c -o Kernel_C.o
+gcc -c Kernel_C.c -o Kernel_C.o
 ```
-
 Compile x86-64 version
 ```
-nasm -f win64 Kernel_ASM.asm -o Kernel_ASM.o
+nasm -f win64 Kernel_ASM.asm -o Kernel_ASM.obj
 ```
-
 Link
 ```
-gcc Kernel_C.o Kernel_ASM.o -o runme -lm
+gcc c.o asm.obj -o run.exe -lm
 ```
+
 Compile Summary
 ```
-gcc -c -O2 Kernel_C.c -o Kernel_C.o
-nasm -f elf64 Kernel_ASM.asm -o Kernel_ASM.o
-gcc Kernel_C.o Kernel_ASM.o -o runme -lm
+gcc -c Kernel_C.c -o Kernel_C.o
+nasm -f win64 Kernel_ASM.asm -o Kernel_ASM.obj
+gcc c.o asm.obj -o run.exe -lm
 ```
 
 Run
 ```
 ./runme
 ```
-
-```
-nasm -f win64 C:\Users\jedia\Downloads\test\Kernel_ASM.asm
-```
-
-```
-
