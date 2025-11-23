@@ -1,6 +1,9 @@
 /*
     De Castro, Jediaelle Denise
     S17B
+
+    This program compares the performance of C and x86-64 assembly implementations
+    for calculating Euclidean distances.
 */
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,12 +19,24 @@
 #define FREE_ALIGNED(ptr) free(ptr)
 #endif
 
+/*
+    Returns the current time in seconds with nanosecond precision
+    Uses monotonic clock for accurate performance measurements
+*/
 double now() {
     struct timespec t;
     clock_gettime(CLOCK_MONOTONIC, &t);
     return t.tv_sec + t.tv_nsec * 1e-9;
 }
 
+/*
+    Initializes input vectors with random floating-point values
+    Each coordinate is randomly generated in the range [0, 10]
+    Parameters:
+    n - number of points to generate
+    X1, X2 - x-coordinates of first and second points
+    Y1, Y2 - y-coordinates of first and second points
+*/
 void init_vectors(int n, float *X1, float *X2, float *Y1, float *Y2) {
     for (int i = 0; i < n; i++) {
         X1[i] = (float)rand() / RAND_MAX * 10.0f;
@@ -31,6 +46,17 @@ void init_vectors(int n, float *X1, float *X2, float *Y1, float *Y2) {
     }
 }
 
+/*
+    Verifies that C and assembly implementations produce identical results
+    Compares outputs element-by-element with a small tolerance for floating-point error
+
+    Parameters:
+    n - number of elements to compare
+    C - output array from C implementation
+    ASM - output array from assembly implementation
+
+    Returns: 1 if results match, 0 if there's a mismatch
+*/
 int verify_results(int n, const float *C, const float *ASM) {
     for (int i = 0; i < n; i++) {
         if (fabsf(C[i] - ASM[i]) > 1e-5f) {
@@ -41,15 +67,35 @@ int verify_results(int n, const float *C, const float *ASM) {
     return 1;
 }
 
+/*
+    Prints the first 10 elements of the output array
+
+    Parameters:
+    Z - output array containing calculated distances
+*/
 void print_first_10(const float *Z) {
     for (int i = 0; i < 10; i++) {
         printf("Z[%d] = %.6f\n", i, Z[i]);
     }
 }
 
+/*
+    External assembly function declaration
+    Calculates the Euclidean distance in x86-64 assembly
+    Formula: Z[i] = sqrt((X2[i] - X1[i])^2 + (Y2[i] - Y1[i])^2)
+*/
 extern void calculate_distance_asm(int n, const float *X1, const float *X2,
                                    const float *Y1, const float *Y2, float *Z);
 
+/*
+    Calculates the Euclidean distance in C
+
+    Parameters:
+    n - number of point pairs to process
+    X1, X2 - x-coordinates of first and second points
+    Y1, Y2 - y-coordinates of first and second points
+    Z - output array to store calculated distances
+ */
 void calculate_distance_c(int n, const float *X1, const float *X2,
                          const float *Y1, const float *Y2, float *Z) {
     for (int i = 0; i < n; i++) {
@@ -60,7 +106,8 @@ void calculate_distance_c(int n, const float *X1, const float *X2,
 }
 
 int main() {
-    // Try 2^30, fallback to 2^26 if it fails
+    // Test vector sizes: 2^20, 2^24, 2^30
+    // fallback to 2^26 if memory allocation fails
     int test_sizes[] = {1 << 20, 1 << 24, 1 << 30, 1 << 26};
     const int NUM_RUNS = 30;
     int large_size_found = 0;
@@ -83,6 +130,7 @@ int main() {
         float *Z_c = (float *)ALLOC_ALIGNED(32, n * sizeof(float));
         float *Z_asm = (float *)ALLOC_ALIGNED(32, n * sizeof(float));
 
+        // Check if memory allocation was successful
         if (!X1 || !X2 || !Y1 || !Y2 || !Z_c || !Z_asm) {
             printf("Error: Memory allocation failed for N=%d (2^%d).\n", n, (int)round(log2(n)));
             
@@ -97,7 +145,7 @@ int main() {
             continue;
         }
 
-        // Mark that we successfully allocated 2^30
+        // Mark that 2^30 successfully allocated
         if (i == 2) {
             large_size_found = 1;
         }
