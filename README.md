@@ -15,3 +15,6 @@ The project is designed to compare the execution time and performance efficiency
 
 ### Analysis of the performance of the kernels
 
+
+### Short Video
+- (https://youtu.be/TxApv_uO8r0)
